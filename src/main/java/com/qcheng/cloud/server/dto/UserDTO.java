@@ -45,12 +45,31 @@ public class UserDTO {
     @Length(max = 64, message = "error.email.length")
     @Column(name = "email")
     private String email;
+    
+    public UserDTO() {
+    	super();
+    }
+    
+    public UserDTO(String firstName, String lastName, String phone, String email) {
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.phone = phone;
+    	this.email = email;
+    }
 
-    public Long getId() {
+    public UserDTO(Long id, String firstName, String lastName, String phone, String email) {
+    	this.id = id;
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.phone = phone;
+    	this.email = email;
+    }
+
+	public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -74,7 +93,7 @@ public class UserDTO {
         return phone;
     }
 
-    public void setPhoneNumber(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
