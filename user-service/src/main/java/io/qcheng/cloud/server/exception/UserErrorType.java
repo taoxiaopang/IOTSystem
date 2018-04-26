@@ -1,6 +1,6 @@
-package com.qcheng.cloud.server.exception;
+package io.qcheng.cloud.server.exception;
 
-import com.qcheng.cloud.server.dto.UserDTO;
+import io.qcheng.cloud.server.dto.UserDTO;
 
 public class UserErrorType extends UserDTO {
 

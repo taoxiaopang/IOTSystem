@@ -1,4 +1,4 @@
-package com.qcheng.cloud.server.exception;
+package io.qcheng.cloud.server.exception;
 
 public class FieldValidationError {
 	private String filed;

@@ -1,4 +1,4 @@
-package com.qcheng.cloud.server.service;
+package io.qcheng.cloud.server.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qcheng.cloud.server.dto.UserDTO;
-import com.qcheng.cloud.server.repository.UserJpaRepository;
+import io.qcheng.cloud.server.dto.UserDTO;
+import io.qcheng.cloud.server.repository.UserJpaRepository;
 
 @Service
 public class AdminService {

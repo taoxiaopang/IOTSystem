@@ -1,4 +1,4 @@
-package com.qcheng.cloud.server.utils;
+package io.qcheng.cloud.server.utils;
 
 public class PatternUtils {
     public static final String GENERAL_STRING = "^[a-zA-Z0-9_\\s.]*$";

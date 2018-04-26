@@ -1,4 +1,4 @@
-package com.qcheng.cloud.server.service;
+package io.qcheng.cloud.server.service;
 
 import org.springframework.stereotype.Service;
 
