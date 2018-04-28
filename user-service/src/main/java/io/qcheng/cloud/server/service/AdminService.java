@@ -1,7 +1,6 @@
 package io.qcheng.cloud.server.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class AdminService {
 		return userJpaRepository.findAll();
 	}
 
-	public Optional<UserDTO> getUserById(Long id) {
+	public UserDTO getUserById(Long id) {
 		return userJpaRepository.findById(id);
 	}
 

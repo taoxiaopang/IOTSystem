@@ -1,7 +1,6 @@
 package io.qcheng.cloud.server.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -43,8 +42,8 @@ public class AdminServiceController {
     
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") final Long id) {
-    	Optional<UserDTO> user = adminService.getUserById(id);
-    	if(!user.isPresent()) {
+    	UserDTO user = adminService.getUserById(id);
+    	if(user == null) {
             logger.info("Unable to get. User with id {} not found", id);
             
             return new ResponseEntity<>(
@@ -52,7 +51,7 @@ public class AdminServiceController {
                             "Unable to get. User with id " + id + " not found."),
                     HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
     
     @PostMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -73,7 +72,7 @@ public class AdminServiceController {
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") final Long id) {
-        if(!adminService.getUserById(id).isPresent()) {
+        if(adminService.getUserById(id) == null) {
             logger.info("Unable to delete. User with id {} not found", id);
             
             return new ResponseEntity<>(

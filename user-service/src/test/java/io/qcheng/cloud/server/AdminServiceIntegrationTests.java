@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.autoconfigure.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -43,7 +43,7 @@ public class AdminServiceIntegrationTests {
 	public void before() {
 		//given
 		userJpaRepository.deleteAll();
-		userJpaRepository.saveAll(Arrays.asList(user1, user2));
+		userJpaRepository.save(Arrays.asList(user1, user2));
 	}
 	
 	@After
@@ -107,7 +107,7 @@ public class AdminServiceIntegrationTests {
 		
 		//then
 		assertThat(userJpaRepository.findAll().size()).isEqualTo(1);
-		assertThat(userJpaRepository.findById(2L).get().getEmail()).isEqualTo(user2.getEmail());
+		assertThat(userJpaRepository.findById(2L).getEmail()).isEqualTo(user2.getEmail());
 	}
 
 }
