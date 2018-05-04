@@ -1,11 +1,11 @@
-package io.qcheng.cloud.server;
+package io.qcheng.cloud.server.user;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 @Configuration
-public class CloudBootConfiguration {
+public class ApplicationConfiguration {
 
 	@Bean(name = "messageSource")
 	public ReloadableResourceBundleMessageSource messageSource() {

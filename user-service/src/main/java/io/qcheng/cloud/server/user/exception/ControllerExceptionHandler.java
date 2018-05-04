@@ -1,4 +1,4 @@
-package io.qcheng.cloud.server.exception;
+package io.qcheng.cloud.server.user.exception;
 
 import java.util.ArrayList;
 import java.util.List;

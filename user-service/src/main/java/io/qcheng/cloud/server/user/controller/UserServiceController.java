@@ -1,10 +1,10 @@
-package io.qcheng.cloud.server.controller;
+package io.qcheng.cloud.server.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.qcheng.cloud.server.service.UserService;
+import io.qcheng.cloud.server.user.service.UserService;
 
 
 @RestController

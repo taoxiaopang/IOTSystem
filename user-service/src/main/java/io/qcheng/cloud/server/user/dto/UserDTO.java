@@ -1,4 +1,4 @@
-package io.qcheng.cloud.server.dto;
+package io.qcheng.cloud.server.user.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import io.qcheng.cloud.server.utils.PatternUtils;
+import io.qcheng.cloud.server.user.utils.PatternUtils;
 
 @Entity
 @Table(name = "tbl_user")

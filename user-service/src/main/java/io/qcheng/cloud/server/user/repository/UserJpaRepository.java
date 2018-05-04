@@ -1,8 +1,8 @@
-package io.qcheng.cloud.server.repository;
+package io.qcheng.cloud.server.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import io.qcheng.cloud.server.dto.UserDTO;
+import io.qcheng.cloud.server.user.dto.UserDTO;
 
 public interface UserJpaRepository extends JpaRepository<UserDTO, Long>{
 

@@ -1,4 +1,4 @@
-package io.qcheng.cloud.server.controller;
+package io.qcheng.cloud.server.user.controller;
 
 import java.util.List;
 
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.qcheng.cloud.server.dto.UserDTO;
-import io.qcheng.cloud.server.exception.UserErrorType;
-import io.qcheng.cloud.server.service.AdminService;
+import io.qcheng.cloud.server.user.dto.UserDTO;
+import io.qcheng.cloud.server.user.exception.UserErrorType;
+import io.qcheng.cloud.server.user.service.AdminService;
 
 @RestController
 @RequestMapping("/api/v2.0/admin")

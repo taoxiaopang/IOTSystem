@@ -1,4 +1,4 @@
-package io.qcheng.cloud.server;
+package io.qcheng.cloud.server.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,8 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import io.qcheng.cloud.server.dto.UserDTO;
-import io.qcheng.cloud.server.repository.UserJpaRepository;
+import io.qcheng.cloud.server.user.dto.UserDTO;
+import io.qcheng.cloud.server.user.repository.UserJpaRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
