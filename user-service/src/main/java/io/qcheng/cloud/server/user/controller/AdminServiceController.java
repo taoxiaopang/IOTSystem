@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.qcheng.cloud.server.user.dto.UserDTO;
+import io.qcheng.cloud.server.user.dto.User;
 import io.qcheng.cloud.server.user.exception.UserErrorType;
 import io.qcheng.cloud.server.user.service.AdminService;
 
 @RestController
-@RequestMapping("/api/v2.0/admin")
+@RequestMapping("/api/v1.0/admin")
 public class AdminServiceController {
     private static final Logger logger = LogManager.getLogger(AdminServiceController.class);
     private AdminService adminService;
@@ -35,14 +35,14 @@ public class AdminServiceController {
     }
     
     @GetMapping("/user")
-    public List<UserDTO> getUsers() {
+    public List<User> getUsers() {
         return adminService.getAllUsers();
         
     }
     
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("id") final Long id) {
-    	UserDTO user = adminService.getUserById(id);
+    public ResponseEntity<User> getUser(@PathVariable("id") final Long id) {
+    	User user = adminService.getUserById(id);
     	if(user == null) {
             logger.info("Unable to get. User with id {} not found", id);
             
@@ -56,7 +56,7 @@ public class AdminServiceController {
     
     @PostMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTO> createNewUser(@Valid @RequestBody final UserDTO user) {
+    public ResponseEntity<User> createNewUser(@Valid @RequestBody final User user) {
         if(adminService.getUserByEmail(user.getEmail()) != null) {
             logger.info("Unable to create. A User with name {} already exist", user.getEmail());
             
@@ -71,7 +71,7 @@ public class AdminServiceController {
     
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") final Long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable("id") final Long id) {
         if(adminService.getUserById(id) == null) {
             logger.info("Unable to delete. User with id {} not found", id);
             

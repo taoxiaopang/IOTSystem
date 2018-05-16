@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
@@ -15,8 +16,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import io.qcheng.cloud.server.user.utils.PatternUtils;
 
 @Entity
-@Table(name = "tbl_user")
-public class UserDTO {
+@Table(name = "tbl_user",
+       uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "email"})
+    })
+public class User {
 
     @Id
     @Column(name = "id")
@@ -46,18 +50,18 @@ public class UserDTO {
     @Column(name = "email")
     private String email;
     
-    public UserDTO() {
+    public User() {
     	super();
     }
     
-    public UserDTO(String firstName, String lastName, String phone, String email) {
+    public User(String firstName, String lastName, String phone, String email) {
     	this.firstName = firstName;
     	this.lastName = lastName;
     	this.phone = phone;
     	this.email = email;
     }
 
-    public UserDTO(Long id, String firstName, String lastName, String phone, String email) {
+    public User(Long id, String firstName, String lastName, String phone, String email) {
     	this.id = id;
     	this.firstName = firstName;
     	this.lastName = lastName;

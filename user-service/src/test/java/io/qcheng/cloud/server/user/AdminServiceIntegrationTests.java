@@ -19,7 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import io.qcheng.cloud.server.user.dto.UserDTO;
+import io.qcheng.cloud.server.user.dto.User;
 import io.qcheng.cloud.server.user.repository.UserJpaRepository;
 
 @RunWith(SpringRunner.class)
@@ -36,8 +36,8 @@ public class AdminServiceIntegrationTests {
 	@Autowired
 	private UserJpaRepository userJpaRepository;
 	
-	private final UserDTO user1 = new UserDTO("xiaopang1", "Tao1", "123456", "txp1@123.com");
-	private final UserDTO user2 = new UserDTO("xiaopang2", "Tao2", "654321", "txp2@abc.com");
+	private final User user1 = new User("xiaopang1", "Tao1", "123456", "txp1@123.com");
+	private final User user2 = new User("xiaopang2", "Tao2", "654321", "txp2@abc.com");
 	
 	@Before
 	public void before() {
@@ -54,11 +54,12 @@ public class AdminServiceIntegrationTests {
 	@Test
 	public void getUsersShouldReturnAllUser() {
 		//when
-		ResponseEntity<List> entity = restTemplate.getForEntity("/api/v2.0/admin/user", List.class);
+		ResponseEntity<User[]> entity = restTemplate.getForEntity("/api/v1.0/admin/user", User[].class);
 		
 		//then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(entity.getBody().size()).isEqualTo(2);
+		assertThat(entity.getBody().length).isEqualTo(2);
+		assertThat(entity.getBody()[0]).isInstanceOf(User.class);
 		assertThat(entity.getBody()).extracting("email").containsExactly(user1.getEmail(), user2.getEmail());
 	}
 	
@@ -68,19 +69,19 @@ public class AdminServiceIntegrationTests {
 		//given(adminService.getUserById(1L)).willReturn(Optional.of(new UserDTO(1L, "xiaopang", "Tao", "123456", "txp@123.com")));
 		
 		//when
-		ResponseEntity<UserDTO> entity = restTemplate.getForEntity("/api/v2.0/admin/user/1", UserDTO.class);
+		ResponseEntity<User> entity = restTemplate.getForEntity("/api/v1.0/admin/user/1", User.class);
 		
 		//then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(entity.getBody()).isInstanceOf(UserDTO.class);	
+		assertThat(entity.getBody()).isInstanceOf(User.class);	
 		assertThat(entity.getBody().getEmail()).isEqualTo(user1.getEmail());
 	}
 	
 	@Test
 	public void createUserShouldReturnCreated() {
 		//when
-		UserDTO user3 = new UserDTO("xiaopang3", "Tao3", "123456", "txp3@123.com");
-		ResponseEntity<UserDTO> entity = restTemplate.postForEntity("/api/v2.0/admin/user", user3, UserDTO.class);
+		User user3 = new User("xiaopang3", "Tao3", "123456", "txp3@123.com");
+		ResponseEntity<User> entity = restTemplate.postForEntity("/api/v1.0/admin/user", user3, User.class);
 		
 		//then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -92,8 +93,8 @@ public class AdminServiceIntegrationTests {
 	@Test
 	public void createUserWithDuplicateEmailShouldReturnConflict() {
 		//when
-		UserDTO user3 = new UserDTO("xiaopang3", "Tao3", "123456", user1.getEmail());
-		ResponseEntity<UserDTO> entity = restTemplate.postForEntity("/api/v2.0/admin/user", user3, UserDTO.class);
+		User user3 = new User("xiaopang3", "Tao3", "123456", user1.getEmail());
+		ResponseEntity<User> entity = restTemplate.postForEntity("/api/v1.0/admin/user", user3, User.class);
 		
 		//then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
