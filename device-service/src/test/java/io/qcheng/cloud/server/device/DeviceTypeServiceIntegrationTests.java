@@ -72,7 +72,7 @@ public class DeviceTypeServiceIntegrationTests {
 
 	private MessageType msgType3 = new MessageType(msgType3Id, MSGTYPE3_NAME, MessageDirection.bidirection,
 			new HashSet<>(Arrays.asList(field2, field3)));
-	
+
 	private MessageType msgType4 = new MessageType(MSGTYPE4_NAME, MessageDirection.toDevice,
 			new HashSet<>(Arrays.asList(field2, field3)));
 
@@ -153,8 +153,8 @@ public class DeviceTypeServiceIntegrationTests {
 		// when
 		ResponseEntity<MessageType> entity = restTemplate
 				.getForEntity("/api/v1.0/deviceType/" + devType1Id + "/messageTypes/" + msgType1Id, MessageType.class);
-		
-		//then
+
+		// then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		MessageType body = entity.getBody();
 		assertThat(body.getId()).isEqualTo(msgType1Id);
@@ -170,26 +170,28 @@ public class DeviceTypeServiceIntegrationTests {
 		// then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 	}
-	
+
 	@Test
 	public void deleteMessageTypeShouldDetachFromItsDeviceType() {
-		//when
-		ResponseEntity<MessageType> entity = restTemplate
-				.exchange("/api/v1.0/deviceType/" + devType1Id + "/messageTypes/" + msgType1Id, HttpMethod.DELETE, null, MessageType.class);
-		
-		//then
+		// when
+		ResponseEntity<MessageType> entity = restTemplate.exchange(
+				"/api/v1.0/deviceType/" + devType1Id + "/messageTypes/" + msgType1Id, HttpMethod.DELETE, null,
+				MessageType.class);
+
+		// then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 		assertThat(messageTypeJpaRepository.findById(msgType1Id)).isNotNull();
-		
-		//This will cause org.hibernate.LazyInitializationException
-		//Set<DeviceType> deviceTypes = new HashSet<>(messageTypeJpaRepository.findById(msgType1Id).getDeviceTypes());
-		//assertThat(devType1Id).isNotIn(deviceTypes.stream().map(deviceType -> deviceType.getId()).collect(Collectors.toList()));
-		
-		entity = restTemplate
-				.getForEntity("/api/v1.0/deviceType/" + devType1Id + "/messageTypes/" + msgType1Id, MessageType.class);
+
+		// This will cause org.hibernate.LazyInitializationException
+		// Set<DeviceType> deviceTypes = new
+		// HashSet<>(messageTypeJpaRepository.findById(msgType1Id).getDeviceTypes());
+		// assertThat(devType1Id).isNotIn(deviceTypes.stream().map(deviceType ->
+		// deviceType.getId()).collect(Collectors.toList()));
+
+		entity = restTemplate.getForEntity("/api/v1.0/deviceType/" + devType1Id + "/messageTypes/" + msgType1Id,
+				MessageType.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 	}
-	
 
 	@Test
 	public void getAllMessageTypesShouldReturnAll() {
@@ -207,43 +209,47 @@ public class DeviceTypeServiceIntegrationTests {
 		assertThat(body).extracting("direction").containsExactlyInAnyOrder(MessageDirection.fromDevice,
 				MessageDirection.bidirection, MessageDirection.bidirection);
 	}
-	
+
 	@Test
 	public void getMessageTypeShouldReturnTheMessageType() {
-		//when
-		ResponseEntity<MessageType> entity = restTemplate.getForEntity("/api/v1.0/messageType/" + msgType1Id, MessageType.class);
-		
-		//then
+		// when
+		ResponseEntity<MessageType> entity = restTemplate.getForEntity("/api/v1.0/messageType/" + msgType1Id,
+				MessageType.class);
+
+		// then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		MessageType messageType = entity.getBody();
 		assertThat(messageType).isNotNull();
 		assertThat(messageType.getId()).isEqualTo(msgType1Id);
 	}
-	
+
 	@Test
 	public void createMessageTypeShouldReturnCreated() {
 		// when
-		ResponseEntity<MessageType> entity = restTemplate.postForEntity("/api/v1.0/messageType", msgType4, MessageType.class);
-		
+		ResponseEntity<MessageType> entity = restTemplate.postForEntity("/api/v1.0/messageType", msgType4,
+				MessageType.class);
+
 		// then
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 		MessageType messageType = messageTypeJpaRepository.findByName(MSGTYPE4_NAME);
 		assertThat(messageType).isNotNull();
 		assertThat(messageType.getDirection()).isEqualTo(MessageDirection.toDevice);
 		String msgType4Id = messageType.getId();
-		
+
 		entity = restTemplate.getForEntity("/api/v1.0/messageType/" + msgType4Id, MessageType.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(entity.getBody()).isNotNull();
 		assertThat(entity.getBody().getFields()).extracting("name").containsExactlyInAnyOrder("voltage", "status");
 	}
-	
+
 	@Test
 	public void createMessageTypeAlreadyExistShouldReturnConflict() {
 		// when
-		ResponseEntity<MessageType> entity = restTemplate.postForEntity("/api/v1.0/messageType", msgType3, MessageType.class);
-		
+		ResponseEntity<MessageType> entity = restTemplate.postForEntity("/api/v1.0/messageType", msgType3,
+				MessageType.class);
+
 		// then
-		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);	
+		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
 	}
+
 }

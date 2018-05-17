@@ -29,16 +29,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.qcheng.cloud.server.device.utils.PatternUtils;
 
 @Entity
-@Table(
-		name = "tbl_messageType",
-		uniqueConstraints = { 
-				@UniqueConstraint(columnNames = { "name", "user_id" })
-		}
-)
+@Table(name = "tbl_messageType", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "user_id" }) })
 public class MessageType {
 
 	public MessageType() {
 		super();
+	}
+
+	public MessageType(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
 	}
 
 	public MessageType(String id, String name, MessageDirection direction, Set<Field> fields) {
@@ -48,7 +49,7 @@ public class MessageType {
 		this.direction = direction;
 		this.fields = fields;
 	}
-	
+
 	public MessageType(String name, MessageDirection direction, Set<Field> fields) {
 		super();
 		this.name = name;
@@ -81,7 +82,7 @@ public class MessageType {
 	private Set<DeviceType> deviceTypes = new HashSet<>();
 
 	@Size(min = 1, max = 100)
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "messageType")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "messageType")
 	private Set<Field> fields = new HashSet<>();
 
 	@Column(name = "user_id", nullable = false)
@@ -126,11 +127,11 @@ public class MessageType {
 	public void setDeviceTypes(Set<DeviceType> deviceTypes) {
 		this.deviceTypes = deviceTypes;
 	}
-	
+
 	public void addDeviceType(DeviceType deviceType) {
 		this.deviceTypes.add(deviceType);
 	}
-	
+
 	public void removeDeviceType(DeviceType deviceType) {
 		this.deviceTypes.remove(deviceType);
 	}
@@ -140,9 +141,9 @@ public class MessageType {
 	}
 
 	public void setFields(Set<Field> fields) {
-	//https://stackoverflow.com/questions/40977239/jpa-onetomany-foreign-key-is-null
-		if(fields != null && !fields.isEmpty()) {
-			for(Field field : fields) {
+		// https://stackoverflow.com/questions/40977239/jpa-onetomany-foreign-key-is-null
+		if (fields != null && !fields.isEmpty()) {
+			for (Field field : fields) {
 				field.setMessageType(this);
 			}
 		}
