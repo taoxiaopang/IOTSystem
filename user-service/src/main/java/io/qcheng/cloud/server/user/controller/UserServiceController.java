@@ -8,7 +8,7 @@ import io.qcheng.cloud.server.user.service.UserService;
 
 
 @RestController
-@RequestMapping(value="/api/v2.0/user")
+@RequestMapping(value="/v1.0/user")
 public class UserServiceController {
     
     private UserService userService;

@@ -24,7 +24,7 @@ import io.qcheng.cloud.server.user.exception.UserErrorType;
 import io.qcheng.cloud.server.user.service.AdminService;
 
 @RestController
-@RequestMapping("/api/v1.0/admin")
+@RequestMapping("/v1.0/admin")
 public class AdminServiceController {
     private static final Logger logger = LogManager.getLogger(AdminServiceController.class);
     private AdminService adminService;

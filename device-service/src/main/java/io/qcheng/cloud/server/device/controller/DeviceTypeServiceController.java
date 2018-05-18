@@ -29,7 +29,7 @@ import io.qcheng.cloud.server.device.service.DeviceTypeService;
 import io.qcheng.cloud.server.device.utils.DeviceServiceUtils;
 
 @RestController
-@RequestMapping("/api/v1.0/deviceType")
+@RequestMapping("/v1.0/deviceType")
 public class DeviceTypeServiceController {
 	private static final Logger logger = LogManager.getLogger(DeviceTypeServiceController.class);
 	private DeviceTypeService deviceTypeService;

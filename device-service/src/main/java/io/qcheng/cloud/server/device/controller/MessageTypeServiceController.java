@@ -25,7 +25,7 @@ import io.qcheng.cloud.server.device.service.MessageTypeService;
 import io.qcheng.cloud.server.device.utils.DeviceServiceUtils;
 
 @RestController
-@RequestMapping("/api/v1.0/messageType")
+@RequestMapping("/v1.0/messageType")
 public class MessageTypeServiceController {
 
 	private static final Logger logger = LogManager.getLogger(MessageTypeServiceController.class);
